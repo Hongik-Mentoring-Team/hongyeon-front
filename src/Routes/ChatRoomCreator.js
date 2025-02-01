@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import Chat from "./Chat"; // 실제 채팅 컴포넌트
 
-function ChatRoomCreator() {
-  const [roomName, setRoomName] = useState("Front ROom");
-  const [membersInfo, setMembersInfo] = useState({
-    1: "nickGno",
-    2: "nickDuck",
-  });
+//채팅방이름, 채팅방멤버 정보 전달 필요
+function ChatRoomCreator({ initialRoomName, initialMembersInfo }) {
+  const [roomName, setRoomName] = useState(initialRoomName || "Front ROom");
+  const [membersInfo, setMembersInfo] = useState(
+    initialMembersInfo || {
+      1: "nickGno", // member_id : nickname
+      2: "nickDuck",
+    }
+  );
   const [chatRoomId, setChatRoomId] = useState(null);
 
   // 채팅방 생성 요청 함수
@@ -40,12 +43,18 @@ function ChatRoomCreator() {
 
   // chatRoomId가 생기면, 즉시 Chat 컴포넌트로 넘어가도록
   if (chatRoomId) {
-    return <Chat chatRoomId={chatRoomId} />;
+    return (
+      <Chat
+        chatRoomId={chatRoomId}
+        roomName={initialRoomName}
+        membersInfo={initialMembersInfo}
+      />
+    );
   }
 
   return (
     <div style={{ padding: 20 }}>
-      <h2>채팅방 생성</h2>
+      <h2>채팅방 생성 요청 페이지</h2>
       <div>
         <label>Room Name: </label>
         <input
@@ -54,7 +63,7 @@ function ChatRoomCreator() {
           style={{ marginBottom: 10 }}
         />
       </div>
-
+      <p> POST 요청을 보내느 페이지 이며 실제로는 유저에게 안보임 </p>
       <button onClick={createRoom}>방 생성하기</button>
 
       <hr />
