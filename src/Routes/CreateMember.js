@@ -59,8 +59,18 @@ const CreateMember = () => {
       })
       .then((data) => {
         console.log("회원가입 성공:", data);
-        window.location.href = process.env.REACT_APP_FRONTEND_URL || "/";
-        // TODO: 성공 후 추가 처리 (예: 리다이렉트, 성공 메시지 출력 등)
+        //회원가입 성공, 세션종료 요청, 홈 리다이렉트
+        return fetch(`${process.env.REACT_APP_BACKEND_URL}/logout`, {
+          method: "POST",
+          credentials: "include",
+        });
+      })
+      .then((logoutResponse) => {
+        if (!logoutResponse.ok) {
+          throw new Error("로그아웃 실패");
+        }
+        console.log("세션 종료");
+        window.location.href = process.env.REACT_APP_FRONTEND_URL;
       })
       .catch((err) => {
         console.error(err);

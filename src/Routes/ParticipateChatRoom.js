@@ -1,6 +1,7 @@
 // 개발 테스트용 컴포넌트.
 import React, { useEffect, useState, useRef } from "react";
 import { Client } from "@stomp/stompjs";
+import SockJS from "sockjs-client";
 
 // 백엔드의 WebSocket 엔드포인트
 const WS_ENDPOINT = "http://localhost:8080/ws-stomp"; // SockJS 사용 시 변경 가능
@@ -24,7 +25,10 @@ function ParticipateChatRoom({ chatRoomId }) {
   useEffect(() => {
     // 1) STOMP 클라이언트 생성
     const stompClient = new Client({
-      brokerURL: WS_ENDPOINT.replace("http", "ws"), // ws:// 또는 wss:// 변환
+      webSocketFactory: () =>
+        new SockJS(WS_ENDPOINT, null, {
+          withCredentials: true,
+        }),
       reconnectDelay: 5000, // 자동 재연결 (5초)
       debug: (msg) => console.log(msg),
       onConnect: () => {

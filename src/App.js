@@ -24,8 +24,11 @@ const App = () => {
         {/* Chat 기본기능 추가 */}
         <Route path="/chat" element={<ChatRoomCreator />} />
         <Route path="/post" element={<TestPost />} />
+        {/* 참가중인 채팅방에 접속하기 */}
         <Route path="/participateChat" element={<ParameterSetDevTool />} />
+        {/* 로그인 및 회원가입 entry 페이지 (테스트 완료)*/}
         <Route path="/loginNew" element={<LoginNew />} />
+        {/* 회원가입 페이지: 로그인 성공 시 여기로 redirect */}
         <Route path="/createMember" element={<CreateMember />} />
       </Routes>
     </Router>
