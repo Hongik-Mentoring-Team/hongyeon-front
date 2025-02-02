@@ -9,7 +9,7 @@ const Navbar = () => (
           <NavLink href="/board">게시판</NavLink>
           <NavLink href="#mentors">멘토찾기</NavLink>
           <NavLink href="#about">서비스소개</NavLink>
-          <NavLink href="/login">로그인</NavLink>
+          <NavLink href="/loginNew">로그인</NavLink>
         </div>
       </div>
     </div>
