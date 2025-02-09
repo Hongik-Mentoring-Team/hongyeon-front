@@ -12,14 +12,14 @@ function ChatRoomCreator({ initialRoomName, initialMembersInfo }) {
   );
   const [chatRoomId, setChatRoomId] = useState(null);
 
-  // 채팅방 생성 요청 함수
+  // 채팅방 생성 요청 함수(POST 요청)
   const createRoom = async () => {
     try {
       const requestData = {
         roomName,
         membersInfo,
       };
-      // 예: 서버 엔드포인트 '/api/v1/chatRoom/initiate' 라고 가정
+      // POST
       const response = await fetch(
         "http://localhost:8080/api/v1/chatRoom/initiate",
         {
